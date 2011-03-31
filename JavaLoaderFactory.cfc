@@ -13,7 +13,7 @@ Purpose:    Factory to provide facade to server-scoped instance of
 
 Example ColdSpring bean factory configuration:
 
-	<bean id="javaLoaderFactory" class="JavaLoaderFactory" />
+	<bean id="javaLoaderFactory" class="JavaLoaderFactory.JavaLoaderFactory" />
 
 	<bean id="javaLoader" factory-bean="javaLoaderFactory" factory-method="getJavaLoader">
 		<constructor-arg name="loadPaths">
