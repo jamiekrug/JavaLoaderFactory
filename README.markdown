@@ -7,7 +7,11 @@ A factory CFC to provide a facade for server-scoped instance(s) of [JavaLoader](
 
 ### init()
 
-The `init()` method accepts two optional arguments: `lockTimeout` and `serverKey`. The `lockTimeout` argument specifies the lock timeout for creating a JavaLoader instance (with `getJavaLoader()`); the default is 60 (seconds). The `serverKey` argument allows you to explicitly name the server scope key that will hold the JavaLoader instance created/retrieved by `getJavaLoader()`. It is recommended that you **not** specify `serverKey`, because JavaLoaderFactory will automatically choose a sensible key that is unique to the JavaLoader `init()` arguments (see below).
+The `init()` method accepts three optional arguments: `lockTimeout`, `javaLoaderDotPath`, and `serverKey`.
+
+ * The `lockTimeout` argument specifies the lock timeout for creating a JavaLoader instance (with `getJavaLoader()`); the default is 60 (seconds).
+ * The `javaLoaderDotPath` argument specifies the dot-path to the JavaLoader component; the default is `javaloader.JavaLoader`.
+ * The `serverKey` argument allows you to explicitly name the server scope key that will hold the JavaLoader instance created/retrieved by `getJavaLoader()`. It is recommended that you **not** specify `serverKey`, because JavaLoaderFactory will automatically choose a sensible key that is unique to the JavaLoader `init()` arguments (see below).
 
 ### getJavaLoader()
 
@@ -28,7 +32,13 @@ The last `getJavaLoader()` argument, `loadRelativePaths`, is an optional array. 
 
 Example [ColdSpring](http://coldspringframework.org/) bean factory configuration (assumes JavaLoaderFactory.cfc in Web root and /opencsv is a CFML mapping or in Web root):
 
-	<bean id="javaLoaderFactory" class="JavaLoaderFactory.JavaLoaderFactory" />
+	<bean id="javaLoaderFactory" class="JavaLoaderFactory.JavaLoaderFactory">
+		<!-- Optional path to JavaLoader. Default is javaloader.JavaLoader
+		<constructor-arg name="javaLoaderDotPath">
+				<value>non_standard_path_to.javaloader.JavaLoader</value>
+		</constructor-arg>
+		-->
+	</bean>
 
 	<bean id="javaLoader" factory-bean="javaLoaderFactory" factory-method="getJavaLoader">
 		<constructor-arg name="loadPaths">
